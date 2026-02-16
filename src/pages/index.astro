@@ -1,11 +1,53 @@
 ---
-import Welcome from '../components/Welcome.astro';
+import HomeFooter from '../components/HomeFooter.astro';
+import HomeHeader from '../components/HomeHeader.astro';
+import HomeProjectNav from '../components/HomeProjectNav.astro';
+import ThemeIcon from '../components/ThemeIcon.astro';
 import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
 ---
 
 <Layout>
-	<Welcome />
+	<ThemeIcon />
+	<HomeHeader />
+	<HomeProjectNav />
+	<HomeFooter />
 </Layout>
+
+<style>
+	:global(body) {
+		--bg: light-dark(#fafafa, #111111);
+		--text: light-dark(#111111, #f2f2f0);
+		--muted: light-dark(#6d6d6d, #a3a3a3);
+		--border: var(--text);
+		box-sizing: border-box;
+		min-height: 100vh;
+		padding: 1.25rem;
+		display: grid;
+		place-content: center;
+		gap: 2rem;
+		background: var(--bg);
+		color: var(--text);
+		font-family: 'Space Grotesk', 'Helvetica Neue', sans-serif;
+		transition:
+			background-color 500ms ease,
+			color 500ms ease;
+	}
+
+	:global(body > header),
+	:global(body > nav),
+	:global(body > footer) {
+		width: min(100%, 24rem);
+	}
+
+	@media (max-width: 560px) {
+		:global(body) {
+			padding: 1.75rem 1rem;
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		:global(body) {
+			transition: none;
+		}
+	}
+</style>

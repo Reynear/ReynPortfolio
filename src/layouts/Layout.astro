@@ -1,23 +1,62 @@
+---
+import '../styles/global.css';
+
+interface Props {
+	title?: string;
+	description?: string;
+}
+
+const {
+	title = 'Reynear | Portfolio',
+	description = 'designs and ships modern web experiences.'
+} = Astro.props as Props;
+---
+
 <!doctype html>
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
+		<meta name="color-scheme" content="light dark" />
+		<script is:inline>
+			function initializeTheme() {
+				const root = document.documentElement;
+				const theme = getInitialTheme();
+				root.classList.toggle('dark', theme === 'dark');
+			}
+
+			function getStoredTheme() {
+				try {
+					return localStorage.getItem('theme');
+				} catch {
+					return null;
+				}
+			}
+
+			function getInitialTheme() {
+				const storedTheme = getStoredTheme();
+				if (storedTheme === 'light' || storedTheme === 'dark') {
+					return storedTheme;
+				}
+
+				return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+			}
+
+			initializeTheme();
+		</script>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			rel="stylesheet"
+			href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap"
+		/>
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="icon" href="/favicon.ico" />
+		<meta name="description" content={description} />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
+		<title>{title}</title>
 	</head>
 	<body>
 		<slot />
 	</body>
 </html>
-
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
-</style>

@@ -1,0 +1,62 @@
+---
+interface ProjectLink {
+	label: string;
+	href: string;
+}
+
+const projects = [
+	{ label: 'agent', href: 'https://agent.reynear.tech' },
+	{ label: 'chat', href: 'https://chat.reynear.tech' },
+	{ label: 'benchmarks', href: 'https://benchmarks.reynear.tech' }
+] satisfies ProjectLink[];
+---
+
+<nav aria-label="Projects">
+	{projects.map(function renderProjectLink(project) {
+		return (
+			<a href={project.href} target="_blank" rel="noreferrer noopener">
+				<span>{project.label}</span>
+				<svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+					<path d="M7 17L17 7M17 7H7M17 7V17" />
+				</svg>
+			</a>
+		);
+	})}
+</nav>
+
+<style>
+	nav {
+		display: grid;
+		gap: 0.6rem;
+
+		a {
+			display: flex;
+			align-items: center;
+			gap: 0.35rem;
+			width: fit-content;
+			color: var(--text);
+			text-decoration: none;
+			border-bottom: 1px solid transparent;
+			font-size: 0.93rem;
+			letter-spacing: 0.02em;
+			transition: border-color 0.15s ease;
+		}
+
+		a:hover,
+		a:focus-visible {
+			border-bottom-color: var(--border);
+		}
+
+		a:focus-visible {
+			outline: 2px solid var(--text);
+			outline-offset: 4px;
+		}
+
+		svg {
+			width: 0.95rem;
+			height: 0.95rem;
+			stroke: currentColor;
+			stroke-width: 2;
+		}
+	}
+</style>
